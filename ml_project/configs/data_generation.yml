@@ -1,0 +1,70 @@
+age:
+  max: 77
+  min: 29
+  step: 1
+  type: int
+ca:
+  max: 3
+  min: 0
+  step: 1
+  type: int
+chol:
+  max: 564
+  min: 126
+  step: 1
+  type: int
+condition:
+  max: 1
+  min: 0
+  step: 1
+  type: bool
+cp:
+  max: 3
+  min: 0
+  step: 1
+  type: int
+exang:
+  max: 1
+  min: 0
+  step: 1
+  type: bool
+fbs:
+  max: 1
+  min: 0
+  step: 1
+  type: bool
+oldpeak:
+  max: 6.2
+  min: 0.0
+  step: 0.1
+  type: float
+restecg:
+  max: 2
+  min: 0
+  step: 1
+  type: int
+sex:
+  max: 1
+  min: 0
+  step: 1
+  type: bool
+slope:
+  max: 2
+  min: 0
+  step: 1
+  type: int
+thal:
+  max: 2
+  min: 0
+  step: 1
+  type: int
+thalach:
+  max: 202
+  min: 71
+  step: 1
+  type: int
+trestbps:
+  max: 200
+  min: 94
+  step: 1
+  type: int

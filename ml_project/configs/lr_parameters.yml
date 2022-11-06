@@ -1,0 +1,9 @@
+model_name: 'lr'
+data_raw: 'heart_cleveland_upload.csv'
+random_state: 37
+split_share: 0.25
+neighbours: 0
+penalty: 'l2'
+c: 1.0
+
+
