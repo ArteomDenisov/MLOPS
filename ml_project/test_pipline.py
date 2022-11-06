@@ -1,7 +1,7 @@
 import logging
 import click
 
-from src.predict_model import load_model, load_test_data, predict, estimate
+from src.predict_model import load_model, load_test_data, predict, estimate, save_predictions
 from src.train_model import DATAPATH, MODELPATH
 from src.transformer import CustomTransformer
 
@@ -18,6 +18,7 @@ def main(metric):
     X_transformed = transformer.transform(X_test)
     predictions = predict(model, X_transformed)
     estimate(predictions, y_test, metric)
+    save_predictions(predictions, DATAPATH)
 
 
 if __name__ == "__main__":
