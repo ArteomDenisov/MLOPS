@@ -1,0 +1,8 @@
+model_name: 'knn'
+data_raw: 'heart_cleveland_upload.csv'
+random_state: 37
+split_share: 0.3
+neighbours: 3
+penalty: 'l1'
+c: 0.0
+
