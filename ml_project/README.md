@@ -15,7 +15,7 @@
 
 запускает обучение с моделью логистической регрессии
 
-> python3 train_pipeline.py --model-name knn
+> python3 train_pipeline.py --model_name knn
 
 запускает обучение с моделью К ближайших соседей
 
