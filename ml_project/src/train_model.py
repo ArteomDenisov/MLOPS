@@ -71,7 +71,7 @@ def fit_model(X_train: pd.DataFrame,
     """
     function to fit model
     """
-    if model is 'knn':
+    if model == 'knn':
         model = KNeighborsClassifier(n_neighbors=config.neighbours)
         logger.info('Default KNN model was created')
     elif model == 'lr':
