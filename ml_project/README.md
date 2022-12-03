@@ -11,7 +11,7 @@
 пайплайн по обучению данных
 доступны две конфигурации
 
- > python3 train_pipeline.py --model-name lr
+ > python3 train_pipeline.py --model_name lr
 
 запускает обучение с моделью логистической регрессии
 
