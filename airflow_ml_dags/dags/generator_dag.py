@@ -11,6 +11,7 @@ def days_ago(n: int):
     today = timezone.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
     return today - timedelta(days=n)
 
+
 # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
 MOUNT_DATA = Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/data/",
                    target="/data",

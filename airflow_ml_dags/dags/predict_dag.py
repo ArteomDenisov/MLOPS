@@ -16,6 +16,14 @@ default_args = {
 
 MODEL_PATH = Variable.get("MODEL_PATH")
 
+# !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
+MOUNT_DATA = Mount(source="/home/artem/artem_denisov/airflow_ml_dags/data/",
+                   target="/data",
+                   type='bind')
+MOUNT_MODEL = Mount(source="/home/artem/artem_denisov/airflow_ml_dags/models/",
+                    target="/models",
+                    type='bind')
+
 
 def days_ago(n: int):
     today = timezone.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -36,14 +44,7 @@ with DAG(
         task_id="predict",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
-        mounts=[Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/data/",
-                      target="/data",
-                      type='bind'),
-                Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/models/",
-                      target="/models",
-                      type='bind'),
-                ]
+        mounts=[MOUNT_DATA, MOUNT_MODEL]
     )
 
     predict

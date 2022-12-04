@@ -13,6 +13,14 @@ def days_ago(n: int):
 
 
 MODEL_PATH = Variable.get("MODEL_PATH")
+# !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
+MOUNT_DATA = Mount(source="/home/artem/artem_denisov/airflow_ml_dags/data/",
+                   target="/data",
+                   type='bind')
+MOUNT_MODEL = Mount(source="/home/artem/artem_denisov/airflow_ml_dags/models/",
+                    target="/models",
+                    type='bind')
+
 
 default_args = {
     "owner": "airflow",
@@ -34,14 +42,7 @@ with DAG(
         task_id="download",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
-        mounts=[Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/data/",
-                      target="/data",
-                      type='bind'),
-                Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/models/",
-                      target="/models",
-                      type='bind'),
-                ]
+        mounts=[MOUNT_DATA, MOUNT_MODEL]
     )
 
     split = DockerOperator(
@@ -51,10 +52,7 @@ with DAG(
         task_id="split",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
-        mounts=[Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/data/",
-                      target="/data",
-                      type='bind')]
+        mounts=[MOUNT_DATA]
     )
 
     transform = DockerOperator(
@@ -64,11 +62,7 @@ with DAG(
         task_id="transform",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
-        mounts=[Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/data/",
-                      target="/data",
-                      type='bind'),
-                ]
+        mounts=[MOUNT_DATA]
     )
 
     train = DockerOperator(
@@ -78,14 +72,7 @@ with DAG(
         task_id="train",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
-        mounts=[Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/data/",
-                      target="/data",
-                      type='bind'),
-                Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/models/",
-                      target="/models",
-                      type='bind'),
-                ]
+        mounts=[MOUNT_DATA, MOUNT_MODEL]
     )
 
     validate = DockerOperator(
@@ -95,14 +82,7 @@ with DAG(
         task_id="validate",
         do_xcom_push=False,
         mount_tmp_dir=False,
-        # !!! HOST folder(NOT IN CONTAINER) replace with yours !!!
-        mounts=[Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/data/",
-                      target="/data",
-                      type='bind'),
-                Mount(source="/Users/user/PycharmProjects/homework02/ArtemDenisov/airflow_ml_dags/models/",
-                      target="/models",
-                      type='bind'),
-                ]
+        mounts=[MOUNT_DATA, MOUNT_MODEL]
     )
 
     download >> split >> transform >> train >> validate
