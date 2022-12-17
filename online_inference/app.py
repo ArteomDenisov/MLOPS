@@ -1,7 +1,7 @@
 import pickle
 from typing import List
 import logging
-import json
+import time
 
 from fastapi import FastAPI, Response, status
 from pydantic import BaseModel
@@ -23,6 +23,7 @@ app = FastAPI()
 HEALTH_CONDITION = True
 model = None
 transformer = None
+start_time = time.time()
 
 
 class Item(BaseModel):
@@ -40,6 +41,7 @@ async def root():
 
 @app.on_event("startup")
 async def startup():
+    time.sleep(30)
     global transformer
     transformer = CustomTransformer()
     transformer.load_scaler()
@@ -62,8 +64,11 @@ async def predict(request: Item) -> List:
     return {'result': result}
 
 
-@app.get("/health", status_code=200)
+@app.get("/health")
 async def health(response: Response):
+    global start_time
+    if time.time() - start_time > 120:
+        raise RuntimeError('time to sleep')
     if model is None:
         response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
     if transformer is None:
